@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 
-const API_KEY = '7f683d26a30d4aeeb43235928252404'; // 👈 Replace with your real key
+const API_KEY = '7f683d26a30d4aeeb43235928252404';
 const BASE_URL = 'https://api.weatherapi.com/v1';
 
 @Injectable({
