@@ -1,0 +1,70 @@
+<!-- Header with back button and page title -->
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <!-- Navigates back to /home when clicked -->
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Weather Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <!-- Loading spinner shown while data is being fetched -->
+  <ion-spinner *ngIf="loading" name="dots" class="ion-margin-top"></ion-spinner>
+
+  <!-- Main weather card displayed when weather data is available -->
+  <ion-card *ngIf="weatherData">
+    <ion-card-header>
+      <!-- Location and current condition -->
+      <ion-card-title>{{ weatherData.location.name }}</ion-card-title>
+      <ion-card-subtitle>{{ weatherData.current.condition.text }}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <!-- Detailed weather info with degrees and times for suris and sunset-->
+      <p>🌡 Feels Like: {{ weatherData.current.feelslike_c }}°C</p>
+      <p>🌇 Sunrise: {{ weatherData.forecast?.forecastday[0]?.astro.sunrise }}</p>
+      <p>🌆 Sunset: {{ weatherData.forecast?.forecastday[0]?.astro.sunset }}</p>
+      <p>👁 Visibility: {{ weatherData.current.vis_km }} km</p>
+      <p>💨 Wind Gust: {{ weatherData.current.gust_kph }} kph</p>
+      <p>🕒 Last Updated: {{ weatherData.current.last_updated }}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="weatherData?.forecast?.forecastday?.length > 1">
+    <ion-card-header>
+      <ion-card-title>3-Day Forecast</ion-card-title>
+    </ion-card-header>
+
+    <!-- Loop through forecast days and display daily data -->
+    <ion-list>
+      <ion-item *ngFor="let day of weatherData.forecast.forecastday">
+        <!-- Weather condition icon -->
+        <ion-avatar slot="start">
+          <img [src]="'https:' + day.day.condition.icon" alt="weather icon" />
+        </ion-avatar>
+        <!-- Forecast day label and temperature range -->
+        <ion-label>
+          <h3>{{ day.date | date:'EEEE' }}</h3>
+          <p>{{ day.day.condition.text }}</p>
+          <p>🌡 {{ day.day.mintemp_c }}°C - {{ day.day.maxtemp_c }}°C</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+
+  <!-- Error message display -->
+  <ion-text color="danger" *ngIf="error">
+    {{ error }}
+  </ion-text>
+
+</ion-content>
+
+<!-- Defined style for avatar images -->
+<style>
+  ion-avatar img {
+    width: 40px;
+    height: 40px;
+  }
+</style>

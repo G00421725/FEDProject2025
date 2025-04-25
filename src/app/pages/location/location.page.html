@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Weather at Your Location</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-spinner *ngIf="loading" name="dots" class="ion-margin-top"></ion-spinner>
+
+  <ion-card *ngIf="weatherData">
+    <ion-card-header>
+      <ion-card-title>{{ weatherData.location.name }}</ion-card-title>
+      <ion-card-subtitle>{{ weatherData.current.condition.text }}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <p>🌡 Temp: {{ weatherData.current.temp_c }}°C</p>
+      <p>💧 Humidity: {{ weatherData.current.humidity }}%</p>
+      <p>🌬 Wind: {{ weatherData.current.wind_kph }} kph</p>
+      <p>🕒 Last Updated: {{ weatherData.current.last_updated }}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-text color="danger" *ngIf="error">
+    {{ error }}
+  </ion-text>
+
+</ion-content>
+

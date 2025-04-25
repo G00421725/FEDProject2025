@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Weather</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding home-content">
+
+  <div class="search-container">
+    <ion-item lines="none" class="custom-input">
+      <ion-label position="floating">Enter City</ion-label>
+      <ion-input [(ngModel)]="city" placeholder="e.g. Dublin"></ion-input>
+    </ion-item>
+
+    <ion-button expand="block" (click)="searchWeather()" class="search-button">
+      <ion-icon name="search" slot="start"></ion-icon>
+      Search
+    </ion-button>
+  </div>
+
+  <ion-spinner *ngIf="loading" name="dots" class="spinner"></ion-spinner>
+
+  <ion-card *ngIf="weatherData" class="weather-card animate-in">
+    <ion-card-header>
+      <ion-card-title>{{ weatherData.location.name }}</ion-card-title>
+      <ion-card-subtitle>{{ weatherData.current.condition.text }}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <p>
+        🌡 Temp:
+        {{ unit === 'C' ? weatherData.current.temp_c + '°C' : weatherData.current.temp_f + '°F' }}
+      </p>
+      <p>💧 Humidity: {{ weatherData.current.humidity }}%</p>
+      <p>🌬 Wind: {{ weatherData.current.wind_kph }} kph</p>
+      <p>📍 Country: {{ weatherData.location.country }}</p>
+      <p>🕒 Updated: {{ weatherData.current.last_updated }}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-button
+    expand="block"
+    fill="outline"
+    color="tertiary"
+    (click)="goToDetails()"
+    class="details-button"
+    *ngIf="weatherData">
+    View Forecast
+  </ion-button>
+
+  <ion-text color="danger" *ngIf="error">
+    {{ error }}
+  </ion-text>
+
+</ion-content>

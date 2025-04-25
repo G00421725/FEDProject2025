@@ -1,2 +1,23 @@
-// For information on how to create your own theme, please see:
-// http://ionicframework.com/docs/theming/
+@import "@ionic/angular/css/core.css";
+@import "@ionic/angular/css/normalize.css";
+@import "@ionic/angular/css/structure.css";
+@import "@ionic/angular/css/typography.css";
+@import "@ionic/angular/css/display.css";
+/* Light Theme Defaults */
+:root {
+  --ion-background-color: #ffffff;
+  --ion-text-color: #000000;
+  --ion-card-background: #ffffff;
+  --ion-item-background: #f9f9f9;
+}
+
+/* Dark Theme Overrides */
+body.dark {
+  --ion-background-color: #121212;
+  --ion-text-color: #f5f5f5;
+  --ion-card-background: #1e1e1e;
+  --ion-item-background: #1a1a1a;
+}
+
+  
+
